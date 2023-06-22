@@ -24,8 +24,8 @@ jobs:
       run:  docker network create quote-network
     - name: Create Docker Container with repective images & network
       run:  | 
-        docker run -d --name gen -p 5000:5000 --network quote-network gen:v1
-        docker run -d --name disp -p 5001:5001 --link gen:gen --network quote-network dis:v1
+        docker run -d --name gen -p 5000:5000 --network quote-network genservice:v1
+        docker run -d --name disp -p 5001:5001 --link gen:gen --network quote-network disp:v1
     
     - name: Install Dependencies
       run: | 
