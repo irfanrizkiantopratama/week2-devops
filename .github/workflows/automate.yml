@@ -1,6 +1,4 @@
-name: Docker Build Images
-
-permissions: write-all
+name: Docker Compose
 
 on:
   push:
@@ -15,18 +13,9 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build the Docker image in respective Directories
       run: |
-        cd quote_disp
-        docker build . --file Dockerfile --tag quote_disp:v1
-        cd ..
-        cd quote_gen
-        docker build . --file Dockerfile --tag quote_disp:v1
-    - name: Create Docker Network
-      run:  docker network create quote-network
-    - name: Create Docker Container with repective images & network
-      run:  | 
-        docker run -d --name gen -p 5000:5000 --network quote-network quote_disp:v1
-        docker run -d --name disp -p 5001:5001 --link gen:gen --network quote-network quote_disp:v1
-    
+       docker-compose build
+       docker-compose up -d
+   
     - name: Install Dependencies
       run: | 
         pip install -r requirements.txt
