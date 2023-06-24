@@ -1,15 +1,23 @@
 version: "3.7"
 services:
-  web1: 
+  web-1: 
     build: ./quote_gen
-    container_name: gen
+    restart: always
+    deploy:
+      replicas: 2
     ports: 
-      - 5000:5000
-  web2:
+      - 5001-5002:5000
+    volumes:
+      - ./quote_gen ./app
+      
+  web-2:
     build: ./quote_disp
-    container_name: disp
+    restart: always
+    deploy:
+      replicas: 2
     ports:
-      - 5001:5001
+      - 6001-6002:5001
     depends_on: 
-      - web1 
-   
+      - web-1
+    volumes:
+      - /quote_disp ./app
