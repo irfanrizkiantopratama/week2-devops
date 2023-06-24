@@ -8,7 +8,7 @@ services:
     ports: 
       - 5001-5002:5000
     volumes:
-      - ./quote_gen 
+      - ./quote_gen:/app
       
   web2:
     build: ./quote_disp
@@ -20,4 +20,4 @@ services:
     depends_on: 
       - web1
     volumes:
-      - ./quote_disp 
+      - ./quote_disp:/app
